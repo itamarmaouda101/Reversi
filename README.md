@@ -1,11 +1,11 @@
 # Reversi
 simple implementation of the Reversi game
 
-a little project i did for training my opp programing skills
-#todo:
-finish adding to board \n
+<p>a little project i did for training my opp and algoritic programing skills </p>
+<h2>todo:</h2>
+<li>finish adding to board </li>
 
-create the main() \n
+<li>create the main() </li>
 
-add AI using alpha beta \n
-making a gui 
+<li> add AI using alpha beta </li>
+<li>making a gui</li> 
