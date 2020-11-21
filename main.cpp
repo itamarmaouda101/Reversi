@@ -156,6 +156,14 @@ class Player: public Game
         }
         void mark_ops_board(int x, int y)
         {
+            //check's if the place is free
+                //#####
+                // i code that hole with:
+                // 6 is empty hole
+                // 0 is enemy hole
+                // player_number is the player hole
+                //######
+            //speacil condicens
             if (((x == 0 || y == 0) || (x == 7 || y == 7)) )
             {
                 
@@ -167,30 +175,138 @@ class Player: public Game
                         set_board_ops(x,y+1, player_number);
                         mark_ops_board(x,y+1);
                     }
-                    if(get_board_ops(x+1, y+1) == player_number)
+                    if(get_board(x+1, y+1) == player_number)
                     {
                         set_board_ops(x+1,y+1, player_number);
                         mark_ops_board(x+1,y+1);
                     }
-                    if(get_board_ops(x+1,y) == player_number)
+                    if(get_board(x+1,y) == player_number)
                     {
                        set_board_ops(x+1,y, player_number);
                        mark_ops_board(x+1,y); 
                     }
+                    if (get_board(x, y+1) == 0)
+                        set_board_ops(x, y+1, 6);
+                    if (get_board(x+1, y+1) == 0)
+                        set_board_ops(x+1, y+1, 6);
+                    if (get_board(x+1, y) == 0)
+                        set_board_ops(x+1, y, 6);
                 }
                 if(x == 7 || y == 7)
-                //3ops
+                {
+                    if(get_board(x,y-1) == player_number)
+                    {
+                        set_board_ops(x,y-1, player_number);
+                        mark_ops_board(x,y-1);
+                    }
+                    if(get_board(x-1, y-1) == player_number)
+                    {
+                        set_board_ops(x-1,y-1, player_number);
+                        mark_ops_board(x-1,y-1);
+                    }
+                    if(get_board(x-1,y) == player_number)
+                    {
+                       set_board_ops(x-1,y, player_number);
+                       mark_ops_board(x-1,y); 
+                    }
+                    if(get_board(x,y-1) == 0)
+                    
+                        set_board_ops(x,y-1, 6);
+                    if(get_board(x-1, y-1) == 0)
+                        set_board_ops(x-1,y-1, 6);
+                    
+                    if(get_board(x-1,y) == 0)
+                       set_board_ops(x-1,y, 6);
+                    
+                }
                 if(x == 0 || 0<y<7)
                 {
-                    for(int i=y-1; i<y+1;i++)
+                    for(int i=x; i<x+2;i++)
                     {
-                        if(get_board(i, ))
+                        if(get_board(i,y+1) == player_number)
+                        {
+                            set_board_ops(i,y+1, player_number);
+                            mark_ops_board(i, y+1);
+                        }
+                       
+                        if (get_board(i,y) == player_number && i != 0)
+                        {
+                            set_board_ops(i, y, player_number);
+                            mark_ops_board(i, y);
+                        }
+                        if (get_board(i,y-1) == player_number)
+                        {
+                            set_board_ops(i, y-1, player_number);
+                            mark_ops_board(i, y-1);
+                        }
+                         if (get_board(i, y+1) == 0)
+                            set_board_ops(i, y+1, 6);
+                        if (get_board(i, y) == 0 && i != 0)
+                            set_board_ops(i, y, 6);
+                        if (get_board(i, y-1) == 0)
+                            set_board_ops(i, y-1, 6);    
                     }
                 }
                 //5 ops
                 if(y == 0 || 0<x<7)
                 //5 ops
-                if()
+                for (int i=0;i<3;i++)
+                {
+                    if (get_board(i,y) == player_number && i != x)
+                    {
+                        set_board_ops(i, y, player_number);
+                        mark_ops_board(i,y);
+                    }
+                    if(get_board(i,y+1) == player_number)
+                    {
+                        set_board_ops(i, y+1, player_number);
+                        mark_ops_board(i, y+1);
+                    }
+                    if (get_board(i,y) == 0 && i != x)
+                        set_board_ops(i, y, 6);
+                    if (get_board(i, y+1) == 0)
+                        set_board_ops(i, y+1, 6);
+                }
+                if(x == 7 || 0<y<7)
+                {
+                    for(int i=0;i<3;i++)
+                    {
+                        if (get_board(x, i) == player_number && i != y)
+                        {
+                            set_board_ops(x, i, player_number);
+                            mark_ops_board(x, i);
+                        }
+                        if (get_board(x-1, i) == player_number)
+                        {
+                            set_board_ops(x-1, i, player_number);
+                            mark_ops_board(x-1, i);
+                        }
+                        if (get_board(x, i) == 0 && i != y)
+                            set_board_ops(x, i, 6);
+                        if (get_board(x-1, i) ==0)
+                            set_board_ops(x-1, i, 6);
+                    }
+                }
+                if (y == 7 || 0<x<7)
+                {
+                    for (int i=0; i<3; i++)
+                    {
+                        if (get_board(i, y) == player_number && i != x)
+                        {
+                            set_board_ops(i, y, player_number);
+                            mark_ops_board(i, y);
+                        }
+                        if (get_board(i, y-1) == player_number)
+                        {
+                            set_board_ops(i, y-1, player_number);
+                            mark_ops_board(i,y-1);
+                        }
+                        if(get_board(i, y) == 0 && i != x)
+                            set_board_ops(i, y, 6);
+                        if (get_board(i, y-1) == 0)
+                            set_board_ops(i, y-1, 6);
+                    }
+                }
             }
             //hundle as the hole in the middle
             for (int i=x; i<x+3;i++)
@@ -203,7 +319,7 @@ class Player: public Game
                     mark_ops_board(i , y+1);
                     //handle as found place to add search
                 }
-                if(get_board(i, y) == player_number || i != x)
+                if(get_board(i, y) == player_number && i != x)
                 {
                     set_board_ops(i, y, player_number);
                     mark_ops_board(i , y);
