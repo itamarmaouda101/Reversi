@@ -1,6 +1,6 @@
 #include <iostream>
 using namespace std;
-
+#define NUMBER_OF_DISKS 10
 class Game
 {
     private:
@@ -10,6 +10,7 @@ class Game
     public:
     //board opertions 
     ///###############
+        Game(){}
         void set_board(int x, int y , int player_number)
         {
             board[x][y] = player_number;
@@ -18,6 +19,7 @@ class Game
         {
             return board[x][y];
         }
+
         void clear_board(int board[8][8])
         {
             for(int i=0; i<8;i++)
@@ -29,6 +31,17 @@ class Game
             }
         }
         void show_board_all_disk(int board[8][8])
+        {
+            for(int i=0; i<8;i++)
+            {
+                printf("\n");
+                for (int j=0;j<8;j++)
+                {
+                    printf("%d", board[i][j]);
+                }
+            }
+        }
+        void show_main_board()
         {
             for(int i=0; i<8;i++)
             {
@@ -128,6 +141,7 @@ class Game
             return 0;
         }
         //#####
+
         
 };
 class Player: public Game
@@ -364,25 +378,7 @@ class Player: public Game
             }
             
         }
-        int play()
-        {
-            clear_board(board_ops);
-            set_player_opsions();
-            cout << "show the board\n";
-            show_board_all_disk(board_ops);
-            int x, y, ret = -1;
-            cout << "enter x place\n";
-            cin >>x;
-            cout << "enter y place\n";
-            cin >>y;
-            while (ret != 1)
-            {
-                ret = add_disk(x, y);
-            }
-            if (finish_my_disks())
-                set_player_won(player_number);
-                return 5;
-        }
+        
         int add_disk(int x, int y)
         {
            
@@ -398,6 +394,28 @@ class Player: public Game
                 return 1;
             }     
         }
+        int play()
+        {
+            clear_board(board_ops);
+            set_player_opsions();
+            cout << "show the board\n";
+            show_board_all_disk(board_ops);
+            int x, y, ret = -1;
+            cout << "enter x place\n";
+            cin >>x;
+            cout << "enter y place\n";
+            cin >>y;
+            while (ret != 1)
+            {
+                ret = add_disk(x, y);
+            }
+            cout << "the board status" << endl;
+            show_main_board();
+            if (finish_my_disks())
+                set_player_won(player_number);
+                return 5;
+            return 1;
+        }
         Player(int number_disks)
         {
             player_number = get_plays_now() + 1;
@@ -406,4 +424,45 @@ class Player: public Game
             add_player();
         }
 };
+int main()
+{
+    Game new_game;
+    Player p1(NUMBER_OF_DISKS);
+    Player p2(NUMBER_OF_DISKS);
+    int play = 1, win ;
+    while (play)
+    {
+        if (win == 5)
+        {
+            win = new_game.how_won();
+            if (win == 1)
+            {
+                printf("player 1 won the game!");
+                break;
+            }
+            else if (win == 2)
+            {
+                printf("player 2 won the game!");
+                break;
+            }
+        }
+        win = p1.play();
+        if (win == 5)
+        {
+            win = new_game.how_won();
+            if (win == 1)
+            {
+                printf("player 1 won the game!");
+                break;
+            }
+            else if (win == 2)
+            {
+                printf("player 2 won the game!");
+                break;
+            }
+        }
+        win = p2.play();
 
+    }
+    return 1;
+}
